@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+//login
 export const Login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -39,6 +40,7 @@ export const Login = async (req, res) => {
 			.cookie("token", token, { httpOnly: true })
 			.json({
 				message: `Welcome back, ${user.fullName}`,
+				user,
 				success: true,
 			});
 	} catch (error) {
@@ -46,6 +48,7 @@ export const Login = async (req, res) => {
 	}
 };
 
+//logout
 export const Logout = async (req, res) => {
 	return res
 		.status(200)
@@ -56,6 +59,7 @@ export const Logout = async (req, res) => {
 		});
 };
 
+//register
 export const Register = async (req, res) => {
 	try {
 		const { fullName, email, password } = req.body;
@@ -68,7 +72,7 @@ export const Register = async (req, res) => {
 		const user = await User.findOne({ email });
 		if (user) {
 			return res.status(401).json({
-				message: "This email already exists",
+				message: "This email is already used",
 				success: false,
 			});
 		}
@@ -83,6 +87,7 @@ export const Register = async (req, res) => {
 
 		return res.status(201).json({
 			message: "Account created successfully",
+			success:true,
 		});
 	} catch (error) {
 		console.log(error);

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import dbConnection from "./src/utils/db.js";
 import cookieParser from "cookie-parser";
 import userRoute from "./src/routes/userRoute.js";
+import cors from "cors";
 
 dbConnection();
 
@@ -19,6 +20,12 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
+const corsOptions = {
+	origin: "http://localhost:3000",
+	credentials:true
+};
+app.use(cors(corsOptions));
 
 //api
 //http://localhost:8000/api/v1/user/
