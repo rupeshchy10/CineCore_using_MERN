@@ -6,24 +6,29 @@ import axios from "axios";
 import { setUser } from "../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { setToggle } from "../redux/movieSlice.js";
 
 const Header = () => {
 	const user = useSelector((store) => store.app.user);
+	const toggle = useSelector((store) => store.movie.toggle);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const logoutHandler = async () => {
 		try {
 			const res = await axios.get(`${API_END_POINT}/logout`);
-			if(res.data.success){
+			if (res.data.success) {
 				toast.success(res.data.message);
 			}
-			console.log(res);
 			dispatch(setUser(null));
 			navigate("/");
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	const toggleHandler = () => {
+		dispatch(setToggle());
 	};
 
 	return (
@@ -42,8 +47,11 @@ const Header = () => {
 						>
 							Logout
 						</button>
-						<button className="bg-red-800 text-white px-4 py-2 ml-2">
-							Search Movie
+						<button
+							onClick={toggleHandler}
+							className="bg-red-800 text-white px-4 py-2 ml-2"
+						>
+							{toggle ? "Home" : "Search Movie"}
 						</button>
 					</div>
 				</div>
