@@ -93,7 +93,7 @@ const Login = () => {
 			</div>
 			<form
 				onSubmit={getInputData}
-				className="flex flex-col rounded-md w-3/12 my-36 p-12 left-0 right-0 mx-auto items-center justify-center absolute bg-black opacity-90"
+				className="flex flex-col rounded-md w-[26%] mt-20 p-12 left-0 right-0 mx-auto items-center justify-center absolute bg-black opacity-90"
 			>
 				<h1 className="text-3xl text-white mb-5 font-bold">
 					{isLogin ? "Login" : "Signup"}
